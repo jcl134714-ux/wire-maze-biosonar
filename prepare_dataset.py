@@ -36,8 +36,7 @@ def load_and_split(file_list, seed=42):
     splits = {s: {'specs': [], 'labels': []} for s in ('train', 'val', 'test')}
 
     for cls, fname in enumerate(file_list):
-        specs = np.load(fname)['spectrograms']  # (N, 2, Nfreq, Ntime)
-        specs = specs[:, 0, :, :]  # use channel 0 only -> (N, Nfreq, Ntime)
+        specs = np.load(fname)['spectrograms']  # (N, Nfreq, Ntime)
         N = specs.shape[0]
 
         labels = np.zeros((N, N_CLASSES), dtype=np.float32)

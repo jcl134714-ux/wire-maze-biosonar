@@ -68,11 +68,12 @@ def reconstruct_echo(S_pulse, G_freq, f_scat, fs, T):
     else:
         Y_full[half:] = np.conj(Y_full[half-1:0:-1])
 
+    # Time reversal aligns the reconstructed echo with the causal time axis
     return np.fft.ifft(Y_full)[::-1].real
 
 
 def echo_to_spectrogram(signal, fs):
-    """Compute dB spectrogram and extract the target frequency band."""
+    """Compute dB spectrogram and extract the 58-82 kHz band (121 bins x 49 frames)."""
     window = np.hamming(STFT_WIN_LEN)
     f, t, Sxx = scipy_spectrogram(signal, fs, window=window,
                                    noverlap=STFT_OVERLAP, nfft=STFT_NFFT,
@@ -89,24 +90,24 @@ def main(input_path, output_path):
 
     S_pulse = compute_pulse_spectrum(FMAX, BW, N_SWEEP, DUR, FS, F_SCAT)
 
-    # Get output dimensions
+    # Get output dimensions from first sample
     sig0 = reconstruct_echo(S_pulse, p_scat_all[0][0, :], F_SCAT, FS, T_TOTAL)
     spec0, _, _ = echo_to_spectrogram(sig0, FS)
     n_freq, n_time = spec0.shape
 
-    spectrograms = np.zeros((n_samples, 2, n_freq, n_time))
+    spectrograms = np.zeros((n_samples, n_freq, n_time))
 
     for i in range(n_samples):
-        p_scat = p_scat_all[i]  # (2, 1152): two receiver channels
-        for ch in range(2):
-            sig = reconstruct_echo(S_pulse, p_scat[ch, :], F_SCAT, FS, T_TOTAL)
-            spec, _, _ = echo_to_spectrogram(sig, FS)
-            spectrograms[i, ch] = spec
+        p_scat = p_scat_all[i]  # (2, 1152): use first receiver channel only
+        sig = reconstruct_echo(S_pulse, p_scat[0, :], F_SCAT, FS, T_TOTAL)
+        spec, _, _ = echo_to_spectrogram(sig, FS)
+        spectrograms[i] = spec
         if (i + 1) % 500 == 0:
             print(f"  {i+1}/{n_samples}")
 
     np.savez(output_path, spectrograms=spectrograms)
-    print(f"Saved {n_samples} samples to {output_path}")
+    print(f"Saved {n_samples} samples -> {output_path} "
+          f"(shape: {spectrograms.shape})")
 
 
 if __name__ == '__main__':
