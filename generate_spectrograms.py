@@ -1,12 +1,8 @@
 """
 Echo spectrogram generation from MSM frequency-domain scattering data.
 
-Reconstructs time-domain echoes via inverse Fourier transform (Section 2.2.1)
-and computes STFT spectrograms (Section 2.4.1) for CNN classification.
+Reconstructs time-domain echoes via inverse Fourier transform (Section 2.2.1) and computes STFT spectrograms (Section 2.4.1) for CNN classification.
 
-Usage:
-    python generate_spectrograms.py --input data/csr_random_results28.mat \
-                                    --output spectrograms/csr_random.npz
 """
 
 import argparse
@@ -17,8 +13,8 @@ from scipy.signal import spectrogram as scipy_spectrogram
 from nlfm_pulse import generate_nlfm_pulse
 
 
-# ---------- Default signal parameters (Table in Section 2.3.3) ----------
-FMAX = 80000       # f_center(70kHz) + BW(20kHz)/2
+# ---------- Signal parameters  ----------
+FMAX = 80000        # f_center(70kHz) + BW(20kHz)/2
 BW = 2e4            # 20 kHz
 N_SWEEP = 20        # sweep-shaping parameter
 DUR = 2e-3          # 2 ms
@@ -68,12 +64,11 @@ def reconstruct_echo(S_pulse, G_freq, f_scat, fs, T):
     else:
         Y_full[half:] = np.conj(Y_full[half-1:0:-1])
 
-    # Time reversal aligns the reconstructed echo with the causal time axis
     return np.fft.ifft(Y_full)[::-1].real
 
 
 def echo_to_spectrogram(signal, fs):
-    """Compute dB spectrogram and extract the 58-82 kHz band (121 bins x 49 frames)."""
+    """Compute spectrogram"""
     window = np.hamming(STFT_WIN_LEN)
     f, t, Sxx = scipy_spectrogram(signal, fs, window=window,
                                    noverlap=STFT_OVERLAP, nfft=STFT_NFFT,
