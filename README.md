@@ -1,5 +1,6 @@
 # wire-maze-biosonar
 Designing Wire Mazes for Replicating Natural Echoes to Study Bat Biosonar Function
+
 Chunlin Jia, Gengkai Hu, Khoo Boo Cheong, Rolf Müller*
 
 The code takes frequency-domain scattering data produced by the Multiple Scattering Model (MSM), reconstructs time-domain echoes, converts them into spectrograms, and trains a CNN to classify five types of scatterer spatial distributions.
