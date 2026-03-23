@@ -8,11 +8,9 @@ import numpy as np
 
 def generate_nlfm_pulse(fmax, bw, n, dur, fs):
     """
-    Generate a Hanning-windowed NLFM pulse.
-
     Parameters
     ----------
-    fmax : float
+    fmax :
         Maximum frequency (Hz), i.e., f_center + bw/2.
     bw : float
         Bandwidth (Hz).
