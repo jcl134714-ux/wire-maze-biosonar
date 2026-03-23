@@ -18,13 +18,13 @@ train_cnn.py — CNN model definition, training, and evaluation
 How to use:
 
 The workflow has three steps. First, generate spectrograms from MSM scattering data (one file per distribution type):
-python generate_spectrograms.py --input data/square_lattice_results28.mat --output spectrograms/square_lattice.npz
+python generate_spectrograms.py 
 
 Then prepare the dataset (applies Jet colormap and splits into train/val/test):
-python prepare_dataset.py --output_dir data/
+python prepare_dataset.py
 
 Finally, train and evaluate the CNN:
-python train_cnn.py --data_dir data/ --epochs 50 --batch_size 64
+python train_cnn.py
 
 Signal parameters:
 
