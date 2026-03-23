@@ -8,8 +8,11 @@ The code takes frequency-domain scattering data produced by the Multiple Scatter
 Repository structure:
 
 nlfm_pulse.py — NLFM pulse generation (see Supporting Information S2)
+
 generate_spectrograms.py — echo reconstruction from MSM data and STFT spectrogram computation
+
 prepare_dataset.py — Jet colormap encoding and train/val/test splitting
+
 train_cnn.py — CNN model definition, training, and evaluation
 
 How to use:
