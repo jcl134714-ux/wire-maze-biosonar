@@ -1,10 +1,6 @@
 """
-Dataset preparation: load spectrograms from all five distribution types,
-apply Jet colormap to produce RGB images (Section 2.4.1), and split into
-train / validation / test sets.
+Dataset preparation: load spectrograms from all five distribution types, apply Jet colormap to produce RGB images (Section 2.4.1), and split into train / validation / test sets.
 
-Usage:
-    python prepare_dataset.py --output_dir data/
 """
 
 import argparse
