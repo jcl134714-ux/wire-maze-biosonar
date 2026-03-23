@@ -1,9 +1,6 @@
 """
-CNN classifier for wire-maze echo spectrograms.
-Network architecture matches Table 1 in the paper.
+CNN classifier for wire-maze echo spectrograms. 
 
-Usage:
-    python train_cnn.py --data_dir data/ --epochs 50 --batch_size 64
 """
 
 import argparse
@@ -22,15 +19,7 @@ CLASS_NAMES = [
 
 
 def build_model(input_shape=(121, 49, 3), n_classes=5):
-    """
-    Build CNN classifier (Table 1).
 
-    4 conv blocks: 32 -> 64 -> 128 -> 256 channels.
-    Blocks 1-3: Conv2D + BatchNorm + MaxPool2D(2x2).
-    Block 4:    Conv2D + BatchNorm + GlobalAveragePooling2D.
-    Head:       Dense(512, 256, 128, 64) with dropout(0.5, 0.4, 0.3, 0.3).
-    Output:     Dense(5, softmax).
-    """
     inputs = layers.Input(shape=input_shape)
 
     # Block 1: 32 filters
