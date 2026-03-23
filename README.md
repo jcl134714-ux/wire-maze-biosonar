@@ -33,4 +33,5 @@ The default NLFM pulse parameters match those in the paper (Section 2.3.3): cent
 Requirements:
 
 numpy, scipy, tensorflow (>= 2.10), scikit-learn, matplotlib, hdf5storage
+
 pip install numpy scipy tensorflow scikit-learn matplotlib hdf5storage
