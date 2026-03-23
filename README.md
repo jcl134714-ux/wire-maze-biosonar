@@ -26,9 +26,11 @@ python prepare_dataset.py --output_dir data/
 Finally, train and evaluate the CNN:
 python train_cnn.py --data_dir data/ --epochs 50 --batch_size 64
 
-Signal parameters
+Signal parameters:
+
 The default NLFM pulse parameters match those in the paper (Section 2.3.3): center frequency 70 kHz, bandwidth 20 kHz, pulse duration 2 ms, and sweep-shaping parameter n = 20. These can be modified in generate_spectrograms.py.
 
 Requirements:
+
 numpy, scipy, tensorflow (>= 2.10), scikit-learn, matplotlib, hdf5storage
 pip install numpy scipy tensorflow scikit-learn matplotlib hdf5storage
